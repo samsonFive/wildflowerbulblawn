@@ -508,100 +508,109 @@ h3{font-family:var(--font-display);font-size:18px;font-weight:normal;color:var(-
 
 <script>
 const FLOWERS = [
-  ['poppy-o',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg',    '#e8781a','CA Poppy','Tip zone · Feb–May'],
-  ['calendula', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Calendula_officinalis_flowers.jpg/400px-Calendula_officinalis_flowers.jpg','#e8a020','Calendula','Tip zone · Mar–Jun'],
-  ['phacelia',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/400px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg','#5870c8','Phacelia','Mid band · Mar–May'],
-  ['nigella',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/400px-Nigella_damascena_-_13.jpg','#4858a8','Nigella','Mid band · Apr–Jun'],
-  ['clarkia',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Clarkia_unguiculata.jpg/400px-Clarkia_unguiculata.jpg','#d06080','Clarkia','Tip–mid · Apr–Jun'],
-  ['flax-s',    'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Linum_grandiflorum_rubrum.jpg/400px-Linum_grandiflorum_rubrum.jpg','#c83030','Scarlet Flax','Annual · tip–mid'],
-  ['flax-b',    'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Linum_perenne_-_habitus.jpg/400px-Linum_perenne_-_habitus.jpg','#3858a8','Blue Flax','Perennial · mid–back'],
-  ['cosmos',    'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/54/Cosmos_bipinnatus_flowers.jpg/400px-Cosmos_bipinnatus_flowers.jpg','#d880a0','Dwarf Cosmos','Tip–mid · Jun–Oct'],
-  ['yarrow-w',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3f/AchilleaMillefolium.jpg/400px-AchilleaMillefolium.jpg','#e8e0cc','Yarrow (white)','Throughout · May–Aug'],
-  ['yarrow-y',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/74/Achillea_filipendulina.jpg/400px-Achillea_filipendulina.jpg','#d8b820','Yarrow (yellow)','Throughout · May–Aug'],
-  ['yarrow-m',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/25/Achillea_millefolium_rosen.jpg/400px-Achillea_millefolium_rosen.jpg','#e890b0','Yarrow (berries)','Throughout · May–Aug'],
-  ['beebalm',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg','#a060c0','Bee Balm','Field-wide · Jun–Aug'],
-  ['scabiosa',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Scabiosa_atropurpurea0.jpg/400px-Scabiosa_atropurpurea0.jpg','#4a1a50','Scabiosa','Hand cluster · mid'],
-  ['hopi',      'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/400px-Amaranthus_cruentus_Hopi_Red_Dye.jpg','#8a0020','Hopi Amaranth','Sentinels · 5–8 ft'],
-  ['craspedia', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Craspedia_globosa_2.jpg/400px-Craspedia_globosa_2.jpg','#d8b010','Craspedia','Mid–back · May–Jul'],
-  ['mullein',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Verbascum_thapsus_fg01.jpg/400px-Verbascum_thapsus_fg01.jpg','#c8b870','Mullein','Hand-place · Year 2'],
-  ['am-splendor','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg/400px-Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg','#a02040','Amaranthus','Back zone · Jul–Oct'],
-  ['celosia',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/6/66/Celosia_argentea_var._cristata_at_Kadavoor.jpg/400px-Celosia_argentea_var._cristata_at_Kadavoor.jpg','#c83860','Celosia','Back zone · Jul–Oct'],
-  ['hibiscus',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hibiscus_trionum0.jpg/400px-Hibiscus_trionum0.jpg','#e8d0a0','Hibiscus Trionum','Back zone · Jul–Sep'],
-  ['gomphrena', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Gomphrena_globosa_-_Morada.jpg/400px-Gomphrena_globosa_-_Morada.jpg','#8840a0','Gomphrena','Back zone cluster'],
-  ['coreopsis', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Coreopsis_tinctoria_by_Stickpen.jpg/400px-Coreopsis_tinctoria_by_Stickpen.jpg','#d8980a','Coreopsis','Throughout · May–Aug'],
-  ['ammi',      'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/39/Ammi_majus_MS_4272.jpg/400px-Ammi_majus_MS_4272.jpg','#e8e4d8','Ammi','Mid band · May–Jul'],
-  ['spilanthes','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Acmella_oleracea_Bl%C3%BCte.jpg/400px-Acmella_oleracea_Bl%C3%BCte.jpg','#d8b010','Toothache Plant','Throughout · Jun–Sep'],
-  ['bupleurum', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bupleurum_rotundifolium_MS_4553.jpg/400px-Bupleurum_rotundifolium_MS_4553.jpg','#7a9830','Bupleurum','Mid band · filler'],
-  ['poppy-g',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg','#e8c830','Poppy (golden)','Tip zone supplement'],
-  ['am-torch',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Amaranthus_hybridus2.jpg/400px-Amaranthus_hybridus2.jpg','#601020','Pygmy Torch','Back zone center'],
-  ['beebalm2',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg','#a060c0','Bee Balm','Field-wide · Jun–Aug'],
+  ['poppy-o', 'img/poppy.jpg', '#e8781a', 'CA Poppy', 'Tip zone · Feb–May'],
+  ['calendula', 'img/calendula.jpg', '#e8a020', 'Calendula', 'Tip zone · Mar–Jun'],
+  ['phacelia', 'img/phacelia.jpg', '#5870c8', 'Phacelia', 'Mid band · Mar–May'],
+  ['nigella', 'img/nigella.jpg', '#4858a8', 'Nigella', 'Mid band · Apr–Jun'],
+  ['clarkia', 'img/clarkia.jpg', '#d06080', 'Clarkia', 'Tip–mid · Apr–Jun'],
+  ['flax-s', 'img/flax_s.jpg', '#c83030', 'Scarlet Flax', 'Annual · tip–mid'],
+  ['flax-b', 'img/flax_b.jpg', '#3858a8', 'Blue Flax', 'Perennial · mid–back'],
+  ['cosmos', 'img/cosmos.jpg', '#d880a0', 'Dwarf Cosmos', 'Tip–mid · Jun–Oct'],
+  ['yarrow-w', 'img/yarrow_w.jpg', '#e8e0cc', 'Yarrow (white)', 'Throughout · May–Aug'],
+  ['yarrow-y', 'img/yarrow_y.jpg', '#d8b820', 'Yarrow (yellow)', 'Throughout · May–Aug'],
+  ['yarrow-m', 'img/yarrow_w.jpg', '#e890b0', 'Yarrow (berries)', 'Throughout · May–Aug'],
+  ['beebalm', 'img/beebalm.jpg', '#a060c0', 'Bee Balm', 'Field-wide · Jun–Aug'],
+  ['beebalm2', 'img/beebalm.jpg', '#a060c0', 'Bee Balm', 'Field-wide · Jun–Aug'],
+  ['scabiosa', 'img/scabiosa.jpg', '#4a1a50', 'Scabiosa', 'Hand cluster · mid'],
+  ['hopi', 'img/hopi.jpg', '#8a0020', 'Hopi Amaranth', 'Sentinels · 5–8 ft'],
+  ['craspedia', 'img/craspedia.jpg', '#d8b010', 'Craspedia', 'Mid–back · May–Jul'],
+  ['mullein', 'img/mullein.jpg', '#c8b870', 'Mullein', 'Hand-place · Year 2'],
+  ['am-splendor', 'img/amaranthus.jpg', '#a02040', 'Amaranthus', 'Back zone · Jul–Oct'],
+  ['am-torch', 'img/amaranthus.jpg', '#601020', 'Pygmy Torch', 'Back zone center'],
+  ['celosia', 'img/celosia.jpg', '#c83860', 'Celosia', 'Back zone · Jul–Oct'],
+  ['hibiscus', 'img/hibiscus.jpg', '#e8d0a0', 'Hibiscus Trionum', 'Back zone · Jul–Sep'],
+  ['gomphrena', 'img/gomphrena.jpg', '#8840a0', 'Gomphrena', 'Back zone cluster'],
+  ['coreopsis', 'img/yarrow_y.jpg', '#d8980a', 'Coreopsis', 'Throughout · May–Aug'],
+  ['ammi', 'img/yarrow_w.jpg', '#e8e4d8', 'Ammi', 'Mid band · May–Jul'],
+  ['spilanthes', 'img/craspedia.jpg', '#d8b010', 'Toothache Plant', 'Throughout · Jun–Sep'],
+  ['bupleurum', 'img/yarrow_w.jpg', '#7a9830', 'Bupleurum', 'Mid band · filler'],
+  ['poppy-g', 'img/poppy.jpg', '#e8c830', 'Poppy (golden)', 'Tip zone supplement'],
 ];
 
 const GALLERY_IDS = ['poppy-o','calendula','phacelia','nigella','clarkia','flax-s','flax-b','cosmos','yarrow-w','beebalm','scabiosa','hopi','craspedia','mullein','am-splendor','celosia','hibiscus','gomphrena'];
 
-const HERO_IMGS = [
-  ['hero-tip',       'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/800px-Eschscholzia_californica.jpg'],
-  ['hero-mid',       'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/800px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg'],
-  ['hero-back',      'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/800px-Amaranthus_cruentus_Hopi_Red_Dye.jpg'],
-  ['hero-backfield', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/800px-Nigella_damascena_-_13.jpg'],
-];
+function makeImg(src, style) {
+  var img = document.createElement('img');
+  img.src = src;
+  img.style.cssText = style;
+  img.setAttribute('referrerpolicy', 'no-referrer');
+  img.onerror = function(){ this.style.display='none'; };
+  return img;
+}
 
 function buildGallery(){
-  const container = document.getElementById('gallery');
+  var container = document.getElementById('gallery');
   if(!container) return;
-  GALLERY_IDS.forEach(id => {
-    const spec = FLOWERS.find(f=>f[0]===id);
+  GALLERY_IDS.forEach(function(id) {
+    var spec = FLOWERS.find(function(f){ return f[0]===id; });
     if(!spec) return;
-    const [, url, color, label, sub] = spec;
-    container.insertAdjacentHTML('beforeend', `
-      <div class="flower-tile">
-        <div class="flower-img" style="background:${color};position:relative;overflow:hidden">
-          <img src="${url}" referrerpolicy="no-referrer" loading="lazy" decoding="async"
-            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"
-            onerror="this.style.display='none'" alt="${label}">
-          <div class="flower-tile-label" style="position:relative;z-index:1">
-            ${label}<span class="flower-tile-sub">${sub}</span>
-          </div>
-        </div>
-      </div>`);
+    var url=spec[1], color=spec[2], label=spec[3], sub=spec[4];
+    var tile = document.createElement('div');
+    tile.className = 'flower-tile';
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'flower-img';
+    imgDiv.style.cssText = 'background:'+color+';position:relative;overflow:hidden';
+    var img = makeImg(url, 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover');
+    imgDiv.appendChild(img);
+    var lbl = document.createElement('div');
+    lbl.className = 'flower-tile-label';
+    lbl.style.cssText = 'position:relative;z-index:1';
+    lbl.innerHTML = label+'<span class="flower-tile-sub">'+sub+'</span>';
+    imgDiv.appendChild(lbl);
+    tile.appendChild(imgDiv);
+    container.appendChild(tile);
   });
 }
 
 function buildThumbs(){
-  FLOWERS.forEach(([id, url, color]) => {
-    const el = document.getElementById('th-'+id);
+  FLOWERS.forEach(function(spec) {
+    var id=spec[0], url=spec[1], color=spec[2];
+    var el = document.getElementById('th-'+id);
     if(!el) return;
-    el.style.cssText = `width:46px;height:46px;border-radius:6px;background:${color};flex-shrink:0;overflow:hidden;position:relative`;
-    el.innerHTML = `<img src="${url}" referrerpolicy="no-referrer" loading="lazy" decoding="async"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"
-      onerror="this.style.display='none'" alt="">`;
+    el.style.cssText = 'width:46px;height:46px;border-radius:6px;background:'+color+';flex-shrink:0;overflow:hidden;position:relative';
+    var img = makeImg(url, 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover');
+    el.appendChild(img);
   });
 }
 
 function buildHeroes(){
-  HERO_IMGS.forEach(([id, url]) => {
-    const el = document.getElementById(id);
+  var heroMap = {
+    'hero-tip': FLOWERS.find(function(f){return f[0]==='poppy-o';})[1],
+    'hero-mid': FLOWERS.find(function(f){return f[0]==='phacelia';})[1],
+    'hero-back': FLOWERS.find(function(f){return f[0]==='hopi';})[1],
+    'hero-backfield': FLOWERS.find(function(f){return f[0]==='nigella';})[1]
+  };
+  Object.keys(heroMap).forEach(function(id) {
+    var el = document.getElementById(id);
     if(!el) return;
-    el.insertAdjacentHTML('afterbegin',
-      `<img src="${url}" referrerpolicy="no-referrer" loading="lazy" decoding="async"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"
-        onerror="this.style.display='none'" alt="">`);
+    var img = makeImg(heroMap[id], 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0');
+    el.insertBefore(img, el.firstChild);
   });
 }
 
 function showPanel(id){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('panel-'+id).classList.add('active');
-  const map=['overview','corrections','buckets','batches','zones','spreader','checklist','backfield'];
+  var map=['overview','corrections','buckets','batches','zones','spreader','checklist','backfield'];
   document.querySelectorAll('.tab-btn')[map.indexOf(id)].classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function toggleBucket(h){h.parentElement.classList.toggle('open')}
+function toggleBucket(h){h.parentElement.classList.toggle('open');}
 function toggleCheck(item){
   item.classList.toggle('done');
-  const total=document.querySelectorAll('.check-item').length;
-  const done=document.querySelectorAll('.check-item.done').length;
+  var total=document.querySelectorAll('.check-item').length;
+  var done=document.querySelectorAll('.check-item.done').length;
   document.getElementById('prog-fill').style.width=(done/total*100)+'%';
   document.getElementById('prog-label').textContent=done+' of '+total+' steps';
 }
