@@ -177,6 +177,709 @@ main{max-width:900px;margin:0 auto;padding:20px 18px 80px}
 .pill-orange{background:var(--warm-light);color:var(--warm)} .pill-gold{background:var(--gold-light);color:var(--gold)} .pill-green{background:var(--green-light);color:var(--green)} .pill-blue{background:var(--blue-light);color:var(--blue)} .pill-pink{background:var(--pink-light);color:var(--pink)} .pill-gray{background:var(--paper3);color:var(--ink3)}
 h3{font-family:var(--font-display);font-size:18px;font-weight:normal;color:var(--ink);margin:18px 0 10px}
 .hand-badge{display:inline-block;font-size:10px;font-family:var(--font-mono);background:var(--paper3);color:var(--ink3);padding:1px 6px;border-radius:4px;white-space:nowrap}
+
+/* ── LIGHTBOX ── */
+#lightbox{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,0.88);
+  align-items:center;justify-content:center;
+  cursor:zoom-out;
+  animation:lbfade .18s ease;
+}
+#lightbox.open{display:flex}
+@keyframes lbfade{from{opacity:0}to{opacity:1}}
+#lightbox img{
+  max-width:92vw;max-height:88vh;
+  border-radius:10px;
+  box-shadow:0 8px 48px rgba(0,0,0,.6);
+  cursor:default;
+  animation:lbzoom .2s ease;
+  object-fit:contain;
+}
+@keyframes lbzoom{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+#lb-caption{
+  position:fixed;bottom:28px;left:0;right:0;
+  text-align:center;color:rgba(255,255,255,.85);
+  font-family:var(--font-body);font-size:14px;font-weight:500;
+  letter-spacing:.02em;pointer-events:none;
+}
+#lb-sub{
+  font-family:var(--font-mono);font-size:11px;
+  color:rgba(255,255,255,.5);text-transform:uppercase;
+  letter-spacing:.1em;margin-top:4px;
+}
+#lb-close{
+  position:fixed;top:20px;right:24px;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.15);border:none;
+  color:white;font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+#lb-close:hover{background:rgba(255,255,255,.28);}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-eyebrow">Mountain Bay Permaculture · 2026</div>
+    <div class="header-title">Meadow Seed Mixing Guide</div>
+  </div>
+  <div>
+    <div class="progress-label" id="prog-label">0 of 14 steps</div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showPanel('overview')">Overview</button>
+  <button class="tab-btn" onclick="showPanel('corrections')">Corrections</button>
+  <button class="tab-btn" onclick="showPanel('buckets')">Seed Buckets</button>
+  <button class="tab-btn" onclick="showPanel('batches')">Batch Plan</button>
+  <button class="tab-btn" onclick="showPanel('zones')">Color Zones</button>
+  <button class="tab-btn" onclick="showPanel('spreader')">Spreader</button>
+  <button class="tab-btn" onclick="showPanel('checklist')">Checklist</button>
+  <button class="tab-btn" onclick="showPanel('backfield')">Back Field</button>
+</div>
+
+<main>
+
+<!-- ══ OVERVIEW ══ -->
+<div class="panel active" id="panel-overview">
+
+  <!-- Cover hero -->
+  <div id="cover-hero" style="width:100%;height:260px;border-radius:var(--radius);overflow:hidden;margin-bottom:20px;position:relative;background:linear-gradient(160deg,#c8602a 0%,#e8a030 30%,#5870c8 60%,#3a1a40 100%)">
+    <img id="cover-img" src="field1.jpg" referrerpolicy="no-referrer" alt="Mountain Bay Meadow at peak bloom" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%)"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Bear Creek Way · Santa Cruz Mountains · 2026</div>
+      <div style="font-family:var(--font-display);font-size:26px;color:white;line-height:1.1">Mountain Bay<br><em>Meadow Reset</em></div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow">Field Guide · WOW Triangle ~5,500 sq ft</div>
+  <div class="section-title">Today's Mission</div>
+  <div class="section-intro">Surface prep → sort seeds → 4 broadcast batches → cross-pattern passes → roll → hand-place accents. Total mix ~115 lb.</div>
+
+  <div class="flower-gallery" id="gallery"></div>
+
+  <div class="divider"></div>
+
+  <div class="timeline">
+    <div class="tl-item done"><div class="tl-dot"></div><div class="tl-tag tag-done">Complete</div><div class="tl-label">Glyphosate application</div><div class="tl-detail">Full WOW triangle sprayed with blue dye marker.</div></div>
+    <div class="tl-item done"><div class="tl-dot"></div><div class="tl-tag tag-done">Complete</div><div class="tl-label">Dieback period (12+ days)</div><div class="tl-detail">Annual grasses confirmed dead. Rush clumps preserved.</div></div>
+    <div class="tl-item current"><div class="tl-dot"></div><div class="tl-tag tag-now">Now</div><div class="tl-label">Knock down &amp; surface prep</div><div class="tl-detail">Brush cutter → weed-whacker → light hand rake. Rush clumps 4–6". No deep tilling.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag tag-next">Next</div><div class="tl-label">Sort &amp; mix seeds into 4 buckets</div><div class="tl-detail">Bucket C fine seeds premixed with 10 lb lime first. All bee balm varieties combined.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag tag-next">Next</div><div class="tl-label">Build 4 batches, broadcast WOW triangle</div><div class="tl-detail">4 directional passes. Gate 4–5 on Chapin 89200.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag tag-next">Next</div><div class="tl-label">Hand-place accent species</div><div class="tl-detail">Scabiosa cluster (mid band) + Hopi Amaranth sentinels (back center) + Mullein (6 spots) + Gomphrena (back zone).</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag tag-next">Next</div><div class="tl-label">Roll field</div><div class="tl-detail">Lawn roller N→S then E→W.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-tag tag-next">Separate</div><div class="tl-label">Back field — Tri-clover + Nigella reserve</div><div class="tl-detail">10 lb clover + 4,000 Nigella seeds. Completely separate from WOW triangle.</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Full inventory</h3>
+  <div class="card">
+    <div class="card-sub" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:13px">
+      <span><span class="tag-pill pill-orange">A</span> Heavy ~3 lb (incl. cosmos)</span>
+      <span><span class="tag-pill pill-gold">B</span> Medium ~30,000 seeds</span>
+      <span><span class="tag-pill pill-green">C</span> Fine ~16,000 seeds</span>
+      <span><span class="tag-pill pill-pink">D</span> Accents + hand-place species</span>
+      <span><span class="tag-pill pill-gray">Carrier</span> 100 lb lime pellets</span>
+      <span><span class="tag-pill pill-green">Biochar</span> 10 lb Anderson's DG</span>
+      <span><span class="tag-pill pill-pink">Scabiosa</span> ~160 seeds · hand cluster</span>
+      <span><span class="tag-pill pill-pink">Hopi Amaranth</span> ~28 seeds · sentinels</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CORRECTIONS ══ -->
+<div class="panel" id="panel-corrections">
+  <div class="section-eyebrow">Plan Review</div>
+  <div class="section-title">Corrections &amp; Improvements</div>
+  <div class="section-intro">Read these before mixing. Ordered by severity.</div>
+  <div class="issue-card caution"><div class="issue-tag">Fix before mixing</div><div class="issue-title">Celosia missing from batch instructions</div><div class="issue-body">1,000-seed Mix Cockscomb Celosia belongs in Batch 3 with warm-season ornamentals. Summer bloomer needing warm soil — not in Batch 1 or 2.</div></div>
+  <div class="issue-card caution"><div class="issue-tag">Fix before mixing</div><div class="issue-title">Biochar not in mixing plan</div><div class="issue-body">10 lb Anderson's BioChar DG goes into Batch 1 with the heavy seeds and lime. Pellet size matches lime — flows through Chapin spreader without issue.</div></div>
+  <div class="issue-card caution"><div class="issue-tag">Fix before mixing</div><div class="issue-title">Gomphrena — concentrate in back zone only</div><div class="issue-body">1,000 seeds across 5,500 sq ft is invisible. Concentrate all 1,000 in back-base zone (~800 sq ft) for ~1.25 seeds/sqft. Hand broadcast during Batch 3, separate container, not in spreader.</div></div>
+  <div class="issue-card caution"><div class="issue-tag">Fix before mixing</div><div class="issue-title">Scarlet Flax (annual) and Blue Flax (perennial) need different zones</div><div class="issue-body">Scarlet Flax must re-seed each year — tip and mid band, full sun. Blue Flax returns from root each year — anchor mid-to-back where it won't be disturbed.</div></div>
+  <div class="issue-card caution"><div class="issue-tag">Fix before mixing</div><div class="issue-title">Bupleurum belongs in Bucket B only, not C</div><div class="issue-body">Medium seed. Goes with flax and nigella in Bucket B, not the fine-seed lime premix.</div></div>
+  <div class="issue-card note"><div class="issue-tag">Reduce quantity</div><div class="issue-title">Nigella — use 8,000 seeds, hold back 4,000</div><div class="issue-body">Full 12,000 will crowd poppies and flax in Year 1. Reserve 4,000 for back field with clover — see Back Field tab.</div></div>
+  <div class="issue-card note"><div class="issue-tag">Consolidate</div><div class="issue-title">Three bee balm varieties — combine before sorting</div><div class="issue-body">Wild Bergamot (1,000) + Scarlet (500) + Mix (500) = 2,000 total. Combine first, then split half into Batch 2, half into Batch 3.</div></div>
+  <div class="issue-card caution"><div class="issue-tag">Watch when cutting</div><div class="issue-title">Mugwort — check for green regrowth at crowns</div><div class="issue-body">12 days post-glyphosate is fine for annuals but mugwort rhizomes can resprout. Green at crown base = cut and remove, don't fold into mulch layer.</div></div>
+  <div class="issue-card note"><div class="issue-tag">Lifecycle note</div><div class="issue-title">Toothache Plant is a tender perennial, not a true annual</div><div class="issue-body">Can survive mild winters at your elevation and get much larger in Year 2. Don't cut back hard in autumn.</div></div>
+  <div class="issue-card resolved"><div class="issue-tag">Added — previously missing</div><div class="issue-title">Dwarf Cosmos ¼ lb, Scabiosa ×2 varieties, Hopi Red Dye Amaranth now in plan</div><div class="issue-body">• Cosmos ¼ lb → Bucket A, tip + mid zones.<br>• Scabiosa (~160 seeds) → hand-sow concentrated cluster in mid band only. Black Knight burgundy against orange poppies is the strongest color contrast in the field.<br>• Hopi Red Dye Amaranth (~28 seeds) → 4–5 hand-placed sentinels at very back center. 5–8 ft tall, massive crimson heads. Completely different from ornamental amaranthus.</div></div>
+  <div class="issue-card resolved"><div class="issue-tag">Resolved</div><div class="issue-title">Chapin 89200 gate settings documented — see Spreader tab</div><div class="issue-body">Start at 4 (Earth Science fast-acting lime flows faster than NutraLime). Full settings per batch in Spreader tab.</div></div>
+  <div class="issue-card resolved"><div class="issue-tag">Resolved — see Back Field tab</div><div class="issue-title">4,000 Nigella reserve works well with clover in back field</div><div class="issue-body">Nigella germinates Feb–Mar in cool soil, blooms Apr–May, dies June → clover fills gap. On bare reset soil with no head start on either side. Compatible. ~1.1 seeds/sqft across ~3,500 sq ft.</div></div>
+</div>
+
+<!-- ══ BUCKETS ══ -->
+<div class="panel" id="panel-buckets">
+  <div class="section-eyebrow">Step 1 of 4</div>
+  <div class="section-title">Sort into Buckets</div>
+  <div class="section-intro">Separate before combining anything. Different seed sizes in the same batch cause heavy seeds to sink and fine seeds to clump.</div>
+  <div class="alert alert-tip"><div class="alert-title">Do this first</div>Combine all three bee balm varieties into one container. Pull Gomphrena, Scabiosa, Hopi Amaranth, and Mullein aside — they never go in the spreader.</div>
+
+  <div class="bucket-card bucket-A open">
+    <div class="bucket-header" onclick="toggleBucket(this)"><div class="bucket-num">A</div><div class="bucket-head-text"><div class="bucket-head-title">Heavy / by weight</div><div class="bucket-head-sub">~3 lb total · Batch 1 · tip + mid zone bias</div></div><div class="bucket-chevron">⌄</div></div>
+    <div class="bucket-body">
+      <div class="seed-row"><div class="seed-thumb" id="th-poppy-o"></div><div class="seed-info"><div class="seed-name">California Poppy (Orange)</div><div class="seed-detail">1 lb · tip zone · Feb–May</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-calendula"></div><div class="seed-info"><div class="seed-name">Calendula Mix</div><div class="seed-detail">1 lb · tip zone · Mar–Jun</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-phacelia"></div><div class="seed-info"><div class="seed-name">Lacy Phacelia</div><div class="seed-detail">1 lb · mid band · Mar–May · pollinator magnet</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-clarkia"></div><div class="seed-info"><div class="seed-name">Clarkia (Red)</div><div class="seed-detail">¼ lb · tip–mid transition · Apr–Jun</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-coreopsis"></div><div class="seed-info"><div class="seed-name">Plains Coreopsis</div><div class="seed-detail">¼ lb · throughout · May–Aug · self-thins</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-ammi"></div><div class="seed-info"><div class="seed-name">Ammi / Bishop's Flower</div><div class="seed-detail">¼ lb · mid band · May–Jul · white filler</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-cosmos"></div><div class="seed-info"><div class="seed-name">Dwarf Cosmos — Sensation Mix Early</div><div class="seed-detail">¼ lb (~3,500 seeds) · annual · tip + mid · Jun–Oct</div></div></div>
+      <div class="seed-note">Add 10 lb biochar DG to this bucket before combining with lime in Batch 1.<br><br>Cosmos: skew toward tip and mid band. 12–18" height won't shade poppies. Fills summer gap after spring flush. Self-thins naturally.</div>
+    </div>
+  </div>
+
+  <div class="bucket-card bucket-B">
+    <div class="bucket-header" onclick="toggleBucket(this)"><div class="bucket-num">B</div><div class="bucket-head-text"><div class="bucket-head-title">Medium / counted seeds</div><div class="bucket-head-sub">~30,000 seeds · split Batch 1 &amp; 2</div></div><div class="bucket-chevron">⌄</div></div>
+    <div class="bucket-body">
+      <div class="seed-row"><div class="seed-thumb" id="th-nigella"></div><div class="seed-info"><div class="seed-name">Nigella / Love-in-a-Mist</div><div class="seed-detail">8,000 of 12,000 · hold back 4,000 for back field</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-poppy-g"></div><div class="seed-info"><div class="seed-name">California Poppy (Golden West)</div><div class="seed-detail">5,000 seeds · tip zone supplement</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-flax-s"></div><div class="seed-info"><div class="seed-name">Scarlet Flax (×2 packets)</div><div class="seed-detail">10,000 seeds · ANNUAL — tip + mid zones only</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-flax-b"></div><div class="seed-info"><div class="seed-name">Blue Flax</div><div class="seed-detail">5,000 seeds · PERENNIAL — skew mid-to-back</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-craspedia"></div><div class="seed-info"><div class="seed-name">Craspedia (Billy Buttons)</div><div class="seed-detail">1,000 seeds · mid + back · yellow globes</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-bupleurum"></div><div class="seed-info"><div class="seed-name">Bupleurum (Hare's Ear)</div><div class="seed-detail">1,000 seeds · medium seed — NOT Bucket C</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-beebalm"></div><div class="seed-info"><div class="seed-name">Bee Balm — all 3 varieties (half)</div><div class="seed-detail">1,000 of 2,000 combined seeds</div></div></div>
+      <div class="seed-note">Scarlet Flax is annual, Blue Flax is perennial — keep separated by zone. Craspedia — stir thoroughly, small enough to sink if you don't.</div>
+    </div>
+  </div>
+
+  <div class="bucket-card bucket-C">
+    <div class="bucket-header" onclick="toggleBucket(this)"><div class="bucket-num">C</div><div class="bucket-head-text"><div class="bucket-head-title">Fine seeds — premix with lime first</div><div class="bucket-head-sub">~16,000 seeds · premix 10 lb lime → fold into Batch 2</div></div><div class="bucket-chevron">⌄</div></div>
+    <div class="bucket-body">
+      <div class="seed-row"><div class="seed-thumb" id="th-yarrow-w"></div><div class="seed-info"><div class="seed-name">Wild White Yarrow</div><div class="seed-detail">5,000 seeds · perennial · throughout field</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-yarrow-y"></div><div class="seed-info"><div class="seed-name">Parker Yarrow (yellow)</div><div class="seed-detail">5,000 seeds · perennial · throughout field</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-yarrow-m"></div><div class="seed-info"><div class="seed-name">Summer Berries Yarrow (mixed)</div><div class="seed-detail">1,000 seeds · perennial · throughout field</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-spilanthes"></div><div class="seed-info"><div class="seed-name">Toothache Plant (Spilanthes)</div><div class="seed-detail">5,000 seeds · tender perennial · may overwinter</div></div></div>
+      <div class="seed-note">⚠ DUST-FINE. Do NOT dump directly into main batch. Pour all Bucket C into a separate container with 10 lb lime, stir 2–3 minutes until coated, then fold the entire clump into Batch 2.<br><br>Gomphrena moved out — hand-broadcast back zone only. Bupleurum is in Bucket B, not here.</div>
+    </div>
+  </div>
+
+  <div class="bucket-card bucket-D">
+    <div class="bucket-header" onclick="toggleBucket(this)"><div class="bucket-num">D</div><div class="bucket-head-text"><div class="bucket-head-title">Accents + hand-place species</div><div class="bucket-head-sub">Batch 3 for broadcaster · several hand-place only</div></div><div class="bucket-chevron">⌄</div></div>
+    <div class="bucket-body">
+      <div class="seed-row"><div class="seed-thumb" id="th-am-splendor"></div><div class="seed-info"><div class="seed-name">Early Splendor Amaranthus</div><div class="seed-detail">5,000 seeds · back zone outer edges</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-am-torch"></div><div class="seed-info"><div class="seed-name">Pygmy Torch Amaranthus</div><div class="seed-detail">5,000 seeds · back zone center cluster</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-celosia"></div><div class="seed-info"><div class="seed-name">Mix Celosia (Cockscomb)</div><div class="seed-detail">1,000 seeds · back zone · warm-season</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-beebalm2"></div><div class="seed-info"><div class="seed-name">Bee Balm — all 3 varieties (remaining half)</div><div class="seed-detail">1,000 of 2,000 combined seeds</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-hibiscus"></div><div class="seed-info"><div class="seed-name">Trionum Hibiscus</div><div class="seed-detail">250 seeds · back zone · Jul–Sep</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-gomphrena"></div><div class="seed-info"><div class="seed-name">Purple Gomphrena <span class="hand-badge">hand only</span></div><div class="seed-detail">1,000 seeds · back-base zone only (~800 sq ft)</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-scabiosa"></div><div class="seed-info"><div class="seed-name">Scabiosa Black Knight + Summer Fruits <span class="hand-badge">hand only</span></div><div class="seed-detail">~160 seeds · 6×6 ft cluster in mid band</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-hopi"></div><div class="seed-info"><div class="seed-name">Hopi Red Dye Amaranth <span class="hand-badge">hand only</span></div><div class="seed-detail">~28 seeds · 4–5 back-center sentinels · 5–8 ft</div></div></div>
+      <div class="seed-row"><div class="seed-thumb" id="th-mullein"></div><div class="seed-info"><div class="seed-name">Mullein (Southern Charm) <span class="hand-badge">hand only</span></div><div class="seed-detail">30 seeds · 6 spots across whole field · flowers Year 2</div></div></div>
+      <div class="seed-note">Scabiosa: hand-sow both varieties together in a ~6×6 ft patch in the mid band (~20 seeds/sqft). Black Knight's deep burgundy against orange poppies is the strongest color contrast in this field. Self-seeds Year 2+.<br><br>Hopi Red Dye Amaranth: grows 5–8 ft with massive crimson grain heads. Completely different from ornamental amaranthus. 4–5 seeds at very back center, 3–4 ft apart.<br><br>Gomphrena: hand-broadcast back-base zone only for visible density.<br><br>Mullein: 5 seeds per spot, 6 spots, press with thumb. Flowers Year 2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BATCHES ══ -->
+<div class="panel" id="panel-batches">
+  <div class="section-eyebrow">Step 2 of 4</div>
+  <div class="section-title">Build the 4 Batches</div>
+  <div class="section-intro">100 lb lime split equally across 4 passes. Each batch = one directional sweep. Cross-pattern eliminates seed streaks.</div>
+  <div class="alert alert-warn"><div class="alert-title">Bucket C premix must be done first</div>All fine seeds must already be pre-stirred into their 10 lb of lime before building Batch 2.</div>
+  <div class="batch-grid">
+    <div class="batch-card batch-1"><div class="batch-card-header"><div class="batch-num">1</div><div><div class="batch-label">N → S pass</div><div class="batch-dir">Main structural layer</div></div></div><div class="batch-card-body"><div class="batch-lime">25 lb lime + 10 lb biochar DG</div><ul class="batch-contents"><li>All of Bucket A (~3 lb heavy seeds)</li><li>Half of Bucket B (medium seeds)</li></ul></div></div>
+    <div class="batch-card batch-2"><div class="batch-card-header"><div class="batch-num">2</div><div><div class="batch-label">E → W pass</div><div class="batch-dir">Fine seed distribution</div></div></div><div class="batch-card-body"><div class="batch-lime">25 lb lime</div><ul class="batch-contents"><li>Remaining Bucket B</li><li>Entire Bucket C premix (already in 10 lb lime)</li></ul></div></div>
+    <div class="batch-card batch-3"><div class="batch-card-header"><div class="batch-num">3</div><div><div class="batch-label">NW → SE diagonal</div><div class="batch-dir">Ornamental accent layer</div></div></div><div class="batch-card-body"><div class="batch-lime">25 lb lime</div><ul class="batch-contents"><li>Bucket D broadcast seeds (Amaranthus, Celosia, Bee Balm, Hibiscus)</li><li>Skew heavier over back third</li><li>Hand-broadcast Gomphrena in back zone</li></ul></div></div>
+    <div class="batch-card batch-4"><div class="batch-card-header"><div class="batch-num">4</div><div><div class="batch-label">SE → NW diagonal</div><div class="batch-dir">Lime-only finish</div></div></div><div class="batch-card-body"><div class="batch-lime">25 lb lime — no seed</div><ul class="batch-contents"><li>Fills coverage gaps from passes 1–3</li><li>Ensures full lime soil contact</li><li>pH correction throughout clay</li></ul></div></div>
+  </div>
+  <div class="divider"></div>
+  <h3>After all 4 passes</h3>
+  <div class="card"><div class="card-title">Hand-place accent species</div><div class="card-sub">Scabiosa cluster in mid band (6×6 ft, both varieties mixed, ~20 seeds/sqft). Hopi Red Dye Amaranth — 4–5 seeds at back center, 3–4 ft apart. Mullein — 5 seeds × 6 spots across whole field.</div></div>
+  <div class="card"><div class="card-title">Roll the field</div><div class="card-sub">Lawn roller. 1 pass N→S, 1 pass E→W. Moderate weight — pressing seed into cracks, not burying it.</div></div>
+  <div class="card"><div class="card-title">Then stop</div><div class="card-sub">Do not rake again, do not cover, do not fertilize. Light irrigation front zone only if rain doesn't arrive in 5–7 days.</div></div>
+</div>
+
+<!-- ══ ZONES ══ -->
+<div class="panel" id="panel-zones">
+  <div class="section-eyebrow">Color Strategy</div>
+  <div class="section-title">WOW Triangle Zones</div>
+  <div class="section-intro">Design from tip to base. Each zone has a distinct color mood that transitions naturally.</div>
+
+  <div class="zone-map-wrap">
+    <svg viewBox="0 0 400 340" width="100%" style="display:block">
+      <defs><linearGradient id="zg" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0%" stop-color="#c8602a" stop-opacity=".2"/><stop offset="45%" stop-color="#2a5580" stop-opacity=".14"/><stop offset="100%" stop-color="#9b4060" stop-opacity=".16"/></linearGradient></defs>
+      <polygon points="200,20 20,310 380,310" fill="url(#zg)" stroke="#1a1a14" stroke-width="1.5" stroke-opacity=".22"/>
+      <polygon points="200,20 145,145 255,145" fill="#c8602a" fill-opacity=".22" stroke="#c8602a" stroke-width="1" stroke-opacity=".5"/>
+      <text x="200" y="100" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#9a4018">Tip Zone</text>
+      <text x="200" y="116" text-anchor="middle" font-family="'Instrument Sans',sans-serif" font-size="10" fill="#9a4018">Orange · Gold · Cosmos</text>
+      <polygon points="145,145 255,145 290,225 110,225" fill="#2a5580" fill-opacity=".15" stroke="#2a5580" stroke-width="1" stroke-opacity=".4"/>
+      <text x="200" y="190" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#1a3f60">Mid Band</text>
+      <text x="200" y="206" text-anchor="middle" font-family="'Instrument Sans',sans-serif" font-size="10" fill="#1a3f60">Blue · White · Scabiosa cluster</text>
+      <polygon points="110,225 290,225 380,310 20,310" fill="#9b4060" fill-opacity=".16" stroke="#9b4060" stroke-width="1" stroke-opacity=".42"/>
+      <text x="200" y="270" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="13" fill="#7a3050">Back Base</text>
+      <text x="200" y="286" text-anchor="middle" font-family="'Instrument Sans',sans-serif" font-size="10" fill="#7a3050">Verticals · Hopi sentinels</text>
+      <text x="388" y="22" text-anchor="end" font-family="'DM Mono',monospace" font-size="9" fill="#7a7a68">N</text>
+    </svg>
+    <div class="zone-legend">
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#c8602a;opacity:.75"></div>Poppy (orange + golden)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#c8602a;opacity:.75"></div>Calendula, Coreopsis, Cosmos</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#c85050;opacity:.5"></div>Clarkia, Scarlet Flax (tip–mid)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#2a5580;opacity:.75"></div>Blue Flax, Phacelia, Nigella</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#2a5580;opacity:.6"></div>Ammi, Bupleurum (white/green filler)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#4a1a50;opacity:.85"></div>Scabiosa cluster (hand-sow 6×6 ft)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#9b4060;opacity:.75"></div>Both Amaranthus varieties</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#9b4060;opacity:.6"></div>Celosia, Hibiscus, Bee Balm</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#9b4060;opacity:.4"></div>Gomphrena (back-base hand broadcast)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#8a0000;opacity:.85"></div>Hopi Red Dye Amaranth (4–5 sentinels)</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#7a7a68;opacity:.6"></div>Yarrow (all 3 varieties) — throughout</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#b8920a;opacity:.75"></div>Craspedia — mid + back</div>
+      <div class="zone-legend-item"><div class="zone-dot" style="background:#1a1a14;opacity:.4"></div>Mullein — 6 hand-placed spots</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="zone-img-card">
+    <div class="zone-hero" id="hero-tip" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#c8602a 0%,#e8a030 50%,#f5cc60 100%)">
+      <div class="zone-hero-label"><div class="zone-hero-title">Tip Zone — Orange &amp; Gold</div><div class="zone-hero-sub">Poppy · Calendula · Coreopsis · Cosmos · Scarlet Flax</div></div>
+    </div>
+    <div class="zone-img-body"><div class="zone-img-sub">California Poppy (both orange and golden varieties), Calendula, Coreopsis, Scarlet Flax, and Dwarf Cosmos anchor the focal point. These bloom earliest (Feb–May) and make the loudest first impression. Cosmos extends the orange/pink palette through summer (Jun–Oct) filling the gap after spring poppies fade.</div></div>
+  </div>
+
+  <div class="zone-img-card">
+    <div class="zone-hero" id="hero-mid" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#3a5585 0%,#6080b8 40%,#9ab0d8 70%,#e8f0f8 100%)">
+      <div class="zone-hero-label"><div class="zone-hero-title">Mid Band — Blue, White &amp; Lavender</div><div class="zone-hero-sub">Blue Flax · Phacelia · Nigella · Ammi · Scabiosa cluster</div></div>
+    </div>
+    <div class="zone-img-body"><div class="zone-img-sub">Blue Flax, Nigella (blue-white), Phacelia (purple), Ammi (white cloud), Bupleurum (lime green filler) cool the palette between the hot tip and dramatic back. Choose a 6×6 ft patch here for your ~160 Scabiosa seeds. Black Knight's deep burgundy against this blue/white palette is the most striking color moment in the whole field.</div></div>
+  </div>
+
+  <div class="zone-img-card">
+    <div class="zone-hero" id="hero-back" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#4a1a28 0%,#8a2040 40%,#c05070 70%,#e890a0 100%)">
+      <div class="zone-hero-label"><div class="zone-hero-title">Back Base — Drama &amp; Height</div><div class="zone-hero-sub">Amaranthus · Celosia · Hibiscus · Hopi Sentinels</div></div>
+    </div>
+    <div class="zone-img-body"><div class="zone-img-sub">Amaranthus (Early Splendor at outer edges, Pygmy Torch center), Celosia, Hibiscus, Bee Balm. The 4–5 Hopi Red Dye Amaranth sentinels anchor the center at 5–8 ft tall with crimson grain heads visible from across the property by late summer. All warm-season — won't appear until summer soil temps rise.</div></div>
+  </div>
+
+  <div class="card"><div class="card-title">Yarrow — the perennial skeleton</div><div class="card-sub">Three varieties (white, yellow, mixed berries) dispersed throughout all zones. By Year 2 yarrow becomes the structural backbone the other plants weave through. Still looks good after everything else has finished.</div></div>
+  <div class="card"><div class="card-title">Clarkia and Flax as the transition bridge</div><div class="card-sub">Let Clarkia and both flax varieties drift across the tip-to-mid boundary. Don't confine them — the color gradient should read soft, not striped.</div></div>
+</div>
+
+<!-- ══ SPREADER ══ -->
+<div class="panel" id="panel-spreader">
+  <div class="section-eyebrow">Chapin 89200</div>
+  <div class="section-title">Spreader Settings</div>
+  <div class="section-intro">Gate opens on a 1–10 scale. Always do a 10 ft test pass onto a tarp before committing to the field.</div>
+  <div class="dial-wrapper">
+    <div class="dial-visual">
+      <svg class="dial-svg" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#e4e0d3" stroke-width="6"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#c8602a" stroke-width="6" stroke-dasharray="245 327" stroke-dashoffset="82" stroke-linecap="round"/>
+        <text x="60" y="52" text-anchor="middle" font-family="'DM Serif Display',serif" font-size="28" fill="#1a1a14">4.5</text>
+        <text x="60" y="68" text-anchor="middle" font-family="'DM Mono',monospace" font-size="10" fill="#7a7a68">START HERE</text>
+        <text x="16" y="100" font-family="'DM Mono',monospace" font-size="9" fill="#7a7a68">1</text>
+        <text x="99" y="100" font-family="'DM Mono',monospace" font-size="9" fill="#7a7a68">10</text>
+      </svg>
+      <div class="dial-label-main">4–5</div>
+      <div class="dial-label-sub">Recommended range</div>
+    </div>
+    <div class="dial-notes">
+      <div class="dial-row"><span class="dial-row-label">Batch 1 (heavy + biochar)</span><span class="dial-row-val">4.5–5</span></div>
+      <div class="dial-row"><span class="dial-row-label">Batch 2 (medium + fine premix)</span><span class="dial-row-val">4–4.5</span></div>
+      <div class="dial-row"><span class="dial-row-label">Batch 3 (accent ornamentals)</span><span class="dial-row-val">4–5</span></div>
+      <div class="dial-row"><span class="dial-row-label">Batch 4 (lime only)</span><span class="dial-row-val">5–6</span></div>
+      <div class="dial-row"><span class="dial-row-label">Walking pace</span><span class="dial-row-val">steady ~3 mph</span></div>
+      <div class="dial-row"><span class="dial-row-label">Spread width</span><span class="dial-row-val">~8–10 ft</span></div>
+    </div>
+  </div>
+  <div class="alert alert-info"><div class="alert-title">Earth Science fast-acting lime note</div>This lime is finer than Anderson's NutraLime and flows faster through the gate. Start at 4 on your first batch — not 5 — and test before committing.</div>
+  <div class="alert alert-tip"><div class="alert-title">Test pass protocol</div>Each batch: do one 10 ft pass onto a tarp. Even distribution, no clumping. Too fast → close ½ step. Too little → open ½ step.</div>
+  <div class="divider"></div>
+  <h3>Walking pattern</h3>
+  <div class="card"><div class="card-title">Pass 1 (Batch 1) — N to S</div><div class="card-sub">Parallel strips, 8 ft spacing. Start slightly outside triangle edge so perimeter gets full coverage.</div></div>
+  <div class="card"><div class="card-title">Pass 2 (Batch 2) — E to W</div><div class="card-sub">Perpendicular to Pass 1. The cross-pattern is what eliminates seed streaks.</div></div>
+  <div class="card"><div class="card-title">Pass 3 (Batch 3) — NW to SE diagonal</div><div class="card-sub">Ornamental accent layer. Slow down over back-base zone for extra density. Can double-pass the back third.</div></div>
+  <div class="card"><div class="card-title">Pass 4 (Batch 4) — SE to NW diagonal, lime only</div><div class="card-sub">Gate 5–6. Fills any coverage gaps. Every patch of clay gets lime contact.</div></div>
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div class="panel" id="panel-checklist">
+  <div class="section-eyebrow">Field Execution</div>
+  <div class="section-title">Day-of Checklist</div>
+  <div class="section-intro">Tap to mark complete. Progress tracked in header.</div>
+  <div class="checklist" id="main-checklist">
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Surface prep complete</div><div class="check-detail">Brush cutter → weed-whacker → light hand rake. Rush clumps 4–6". No deep tilling.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Checked for mugwort regrowth at crowns</div><div class="check-detail">Any green at crown base = cut and remove. Don't fold into mulch layer.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">All bee balm varieties combined</div><div class="check-detail">Bergamot + Scarlet + Mix → one container. Split half to Bucket B, half to Bucket D.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Bupleurum confirmed in Bucket B, not C</div><div class="check-detail">Medium seed — goes with flax and nigella, not the fine-seed premix.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Gomphrena, Scabiosa, Hopi Amaranth, Mullein set aside</div><div class="check-detail">All hand-place species in separate containers, clearly labeled. None go in the spreader.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">~4,000 Nigella seeds held back for back field</div><div class="check-detail">Labeled bag for tri-clover session — see Back Field tab.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Bucket C fine seeds premixed with 10 lb lime</div><div class="check-detail">All yarrow (3 varieties) + Toothache Plant → separate container, stir 2–3 min until coated.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Batch 1 built and test pass done — Pass 1 complete (N→S)</div><div class="check-detail">25 lb lime + 10 lb biochar + Bucket A + half Bucket B. Gate 4.5–5, test pass first.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Pass 2 complete (E→W)</div><div class="check-detail">Batch 2: 25 lb lime + remaining Bucket B + Bucket C premix. Gate 4–4.5.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Pass 3 complete (NW→SE) + Gomphrena hand-broadcast</div><div class="check-detail">Batch 3: accent ornamentals. Slow over back-base zone. Gomphrena hand-broadcast back zone only.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Pass 4 complete (SE→NW, lime only)</div><div class="check-detail">Gate 5–6. No seed. Full-field lime finish.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Scabiosa cluster hand-sown in mid band</div><div class="check-detail">Black Knight + Summer Fruits mixed in ~6×6 ft patch. ~20 seeds/sqft. Not in spreader.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Hopi Red Dye Amaranth placed at back center</div><div class="check-detail">4–5 seeds, very back center, 3–4 ft apart. Not mixed with ornamental amaranthus.</div></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><span class="check-tick">✓</span></div><div class="check-text"><div class="check-label">Mullein hand-placed + field rolled</div><div class="check-detail">6 spots × 5 seeds pressed with thumb. Lawn roller N→S + E→W. Moderate weight. Do not rake after rolling.</div></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="alert alert-tip"><div class="alert-title">Back field is a separate operation</div>10 lb tri-clover + 4,000 Nigella seeds. Own broadcast session. No wildflower seed mixed in.</div>
+  <div class="card" style="margin-top:14px"><div class="card-title">What the surface should look like after rolling</div><div class="card-sub">Flattened straw, scattered soil pockets, lime pellets visible, rush clumps trimmed. Rough and patchy is correct. Not a smooth lawn.</div></div>
+</div>
+
+<!-- ══ BACK FIELD ══ -->
+<div class="panel" id="panel-backfield">
+  <div class="section-eyebrow">Separate Operation</div>
+  <div class="section-title">Back Field — Clover + Nigella</div>
+  <div class="section-intro">Completely separate from the WOW triangle. Do not mix clover into any WOW triangle batch.</div>
+  <div class="zone-img-card">
+    <div class="zone-hero" id="hero-backfield" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#2a4a80 0%,#4a70b0 40%,#8ab0e0 70%,#d0e8f8 100%)">
+      <div class="zone-hero-label"><div class="zone-hero-title">Back Field — Nigella + Tri-Clover</div><div class="zone-hero-sub">Annual color layer over perennial soil-building base</div></div>
+    </div>
+    <div class="zone-img-body"><div class="zone-img-sub">4,000 reserved Nigella seeds broadcast with clover on bare reset soil. Different seasonal schedules mean no real competition — Nigella in cool weather (Feb–May), clover filling the gap from June onward.</div></div>
+  </div>
+  <div class="card"><div class="card-title">Feb–Mar: Nigella germinates first</div><div class="card-sub">Cool soil favours Nigella. Clover slow in cold clay. Nigella establishes unopposed.</div></div>
+  <div class="card"><div class="card-title">Apr–May: Nigella blooms, clover accelerates</div><div class="card-sub">Nigella at full bloom. Clover growing but Nigella is tall enough not to be shaded. Two plants at different canopy heights.</div></div>
+  <div class="card"><div class="card-title">Jun: Nigella sets seed and dies</div><div class="card-sub">Annual lifecycle complete. Opens space. Clover surges for the rest of the season.</div></div>
+  <div class="card"><div class="card-title">Jul–Oct: Clover holds the field</div><div class="card-sub">Nitrogen fixation. Dog-safe running surface. Nigella seed banked for Year 2.</div></div>
+  <div class="card"><div class="card-title">Year 2+: Self-seeding loop</div><div class="card-sub">Nigella self-sows reliably on disturbed clay. The cycle becomes self-sustaining.</div></div>
+  <div class="divider"></div>
+  <div class="alert alert-warn"><div class="alert-title">One risk</div>If clover were already established it could crowd Nigella seedlings. On bare reset soil this is not a concern — both start from zero.</div>
+  <div class="card"><div class="card-title">How to mix and broadcast</div><div class="card-sub">Combine 4,000 Nigella with 10 lb tri-clover in one container. Simple cross-pattern N→S then E→W. No roller required unless soil is very loose. Rate: ~1.1 Nigella seeds/sqft across ~3,500 sq ft.</div></div>
+  <div class="card"><div class="card-title">Chapin gate for clover mix</div><div class="card-sub">Gate 3–4. Clover seed is small and flows quickly — test on a tarp first.</div></div>
+</div>
+
+</main>
+
+<script>
+const FLOWERS = [
+  ['poppy-o', 'img/poppy.jpg', '#e8781a', 'CA Poppy', 'Tip zone · Feb–May'],
+  ['calendula', 'img/calendula.jpg', '#e8a020', 'Calendula', 'Tip zone · Mar–Jun'],
+  ['phacelia', 'img/phacelia.jpg', '#5870c8', 'Phacelia', 'Mid band · Mar–May'],
+  ['nigella', 'img/nigella.jpg', '#4858a8', 'Nigella', 'Mid band · Apr–Jun'],
+  ['clarkia', 'img/clarkia.jpg', '#d06080', 'Clarkia', 'Tip–mid · Apr–Jun'],
+  ['flax-s', 'img/flax_s.jpg', '#c83030', 'Scarlet Flax', 'Annual · tip–mid'],
+  ['flax-b', 'img/flax_b.jpg', '#3858a8', 'Blue Flax', 'Perennial · mid–back'],
+  ['cosmos', 'img/cosmos.jpg', '#d880a0', 'Dwarf Cosmos', 'Tip–mid · Jun–Oct'],
+  ['yarrow-w', 'img/yarrow_w.jpg', '#e8e0cc', 'Yarrow (white)', 'Throughout · May–Aug'],
+  ['yarrow-y', 'img/yarrow_y.jpg', '#d8b820', 'Yarrow (yellow)', 'Throughout · May–Aug'],
+  ['yarrow-m', 'img/yarrow_w.jpg', '#e890b0', 'Yarrow (berries)', 'Throughout · May–Aug'],
+  ['beebalm', 'img/beebalm.jpg', '#a060c0', 'Bee Balm', 'Field-wide · Jun–Aug'],
+  ['beebalm2', 'img/beebalm.jpg', '#a060c0', 'Bee Balm', 'Field-wide · Jun–Aug'],
+  ['scabiosa', 'img/scabiosa.jpg', '#4a1a50', 'Scabiosa', 'Hand cluster · mid'],
+  ['hopi', 'img/hopi.jpg', '#8a0020', 'Hopi Amaranth', 'Sentinels · 5–8 ft'],
+  ['craspedia', 'img/craspedia.jpg', '#d8b010', 'Craspedia', 'Mid–back · May–Jul'],
+  ['mullein', 'img/mullein.jpg', '#c8b870', 'Mullein', 'Hand-place · Year 2'],
+  ['am-splendor', 'img/amaranthus.jpg', '#a02040', 'Amaranthus', 'Back zone · Jul–Oct'],
+  ['am-torch', 'img/amaranthus.jpg', '#601020', 'Pygmy Torch', 'Back zone center'],
+  ['celosia', 'img/celosia.jpg', '#c83860', 'Celosia', 'Back zone · Jul–Oct'],
+  ['hibiscus', 'img/hibiscus.jpg', '#e8d0a0', 'Hibiscus Trionum', 'Back zone · Jul–Sep'],
+  ['gomphrena', 'img/gomphrena.jpg', '#8840a0', 'Gomphrena', 'Back zone cluster'],
+  ['coreopsis', 'img/yarrow_y.jpg', '#d8980a', 'Coreopsis', 'Throughout · May–Aug'],
+  ['ammi', 'img/yarrow_w.jpg', '#e8e4d8', 'Ammi', 'Mid band · May–Jul'],
+  ['spilanthes', 'img/craspedia.jpg', '#d8b010', 'Toothache Plant', 'Throughout · Jun–Sep'],
+  ['bupleurum', 'img/yarrow_w.jpg', '#7a9830', 'Bupleurum', 'Mid band · filler'],
+  ['poppy-g', 'img/poppy.jpg', '#e8c830', 'Poppy (golden)', 'Tip zone supplement'],
+];
+
+const GALLERY_IDS = ['poppy-o','calendula','phacelia','nigella','clarkia','flax-s','flax-b','cosmos','yarrow-w','beebalm','scabiosa','hopi','craspedia','mullein','am-splendor','celosia','hibiscus','gomphrena'];
+
+function makeImg(src, style) {
+  var img = document.createElement('img');
+  img.src = src;
+  img.style.cssText = style;
+  img.setAttribute('referrerpolicy', 'no-referrer');
+  img.onerror = function(){ this.style.display='none'; };
+  return img;
+}
+
+function buildGallery(){
+  var container = document.getElementById('gallery');
+  if(!container) return;
+  GALLERY_IDS.forEach(function(id) {
+    var spec = FLOWERS.find(function(f){ return f[0]===id; });
+    if(!spec) return;
+    var url=spec[1], color=spec[2], label=spec[3], sub=spec[4];
+    var tile = document.createElement('div');
+    tile.className = 'flower-tile';
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'flower-img';
+    imgDiv.style.cssText = 'background:'+color+';position:relative;overflow:hidden';
+    var img = makeImg(url, 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover');
+    imgDiv.appendChild(img);
+    var lbl = document.createElement('div');
+    lbl.className = 'flower-tile-label';
+    lbl.style.cssText = 'position:relative;z-index:1';
+    lbl.innerHTML = label+'<span class="flower-tile-sub">'+sub+'</span>';
+    imgDiv.appendChild(lbl);
+    tile.appendChild(imgDiv);
+    (function(u,l,s){ tile.style.cursor='zoom-in'; tile.onclick=function(){ openLightbox(u,l,s); }; })(url,label,sub);
+    container.appendChild(tile);
+  });
+}
+
+function buildThumbs(){
+  FLOWERS.forEach(function(spec) {
+    var id=spec[0], url=spec[1], color=spec[2];
+    var el = document.getElementById('th-'+id);
+    if(!el) return;
+    el.style.cssText = 'width:46px;height:46px;border-radius:6px;background:'+color+';flex-shrink:0;overflow:hidden;position:relative';
+    var img = makeImg(url, 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover');
+    el.style.cursor = 'zoom-in';
+    (function(u, n, d){
+      el.onclick = function(){ 
+        var info = el.parentElement;
+        var nm = info.querySelector('.seed-name') ? info.querySelector('.seed-name').textContent : n;
+        var dt = info.querySelector('.seed-detail') ? info.querySelector('.seed-detail').textContent : d;
+        openLightbox(u, nm, dt);
+      };
+    })(url, id, '');
+    el.appendChild(img);
+  });
+}
+
+function buildHeroes(){
+  var heroMap = {
+    'hero-tip': FLOWERS.find(function(f){return f[0]==='poppy-o';})[1],
+    'hero-mid': FLOWERS.find(function(f){return f[0]==='phacelia';})[1],
+    'hero-back': FLOWERS.find(function(f){return f[0]==='hopi';})[1],
+    'hero-backfield': FLOWERS.find(function(f){return f[0]==='nigella';})[1]
+  };
+  Object.keys(heroMap).forEach(function(id) {
+    var el = document.getElementById(id);
+    if(!el) return;
+    var img = makeImg(heroMap[id], 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0');
+    el.insertBefore(img, el.firstChild);
+  });
+}
+
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('panel-'+id).classList.add('active');
+  var map=['overview','corrections','buckets','batches','zones','spreader','checklist','backfield'];
+  document.querySelectorAll('.tab-btn')[map.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleBucket(h){h.parentElement.classList.toggle('open');}
+function toggleCheck(item){
+  item.classList.toggle('done');
+  var total=document.querySelectorAll('.check-item').length;
+  var done=document.querySelectorAll('.check-item.done').length;
+  document.getElementById('prog-fill').style.width=(done/total*100)+'%';
+  document.getElementById('prog-label').textContent=done+' of '+total+' steps';
+}
+
+buildGallery();
+buildThumbs();
+buildHeroes();
+
+function openLightbox(src, name, sub) {
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lb-img');
+  var nm = document.getElementById('lb-name');
+  var sb = document.getElementById('lb-sub');
+  img.src = src;
+  nm.textContent = name;
+  sb.textContent = sub;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lb-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+</script>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+  <button id="lb-close" onclick="closeLightbox()">&#215;</button>
+  <div id="lb-caption">
+    <div id="lb-name"></div>
+    <div id="lb-sub"></div>
+  </div>
+</div>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Mountain Bay Meadow — Seed Mixing Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a14;--ink2:#4a4a3a;--ink3:#7a7a68;
+  --paper:#f5f2eb;--paper2:#ede9de;--paper3:#e4e0d3;
+  --warm:#c8602a;--warm-light:#f5dece;
+  --gold:#b8920a;--gold-light:#f5eccc;
+  --green:#3a6b35;--green-light:#d8ebd4;
+  --blue:#2a5580;--blue-light:#d0e4f5;
+  --pink:#9b4060;--pink-light:#f5dce6;
+  --border:rgba(26,26,20,0.12);--border-strong:rgba(26,26,20,0.25);
+  --radius:10px;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'Instrument Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6}
+
+header{background:var(--ink);color:var(--paper);padding:20px 24px 16px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.header-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,242,235,.5);margin-bottom:3px}
+.header-title{font-family:var(--font-display);font-size:20px;color:var(--paper);line-height:1.1}
+.progress-label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(245,242,235,.45);margin-bottom:5px;text-align:right}
+.progress-bar{width:110px;height:4px;background:rgba(245,242,235,.15);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--warm);border-radius:2px;transition:width .4s ease}
+
+.tab-bar{background:var(--paper2);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:65px;z-index:99;padding:0 8px}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:11px 16px;font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--ink3);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--warm)}
+.tab-btn:active{opacity:.7}
+
+main{max-width:900px;margin:0 auto;padding:20px 18px 80px}
+.panel{display:none}
+.panel.active{display:block}
+
+.section-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.section-title{font-family:var(--font-display);font-size:26px;line-height:1.15;color:var(--ink);margin-bottom:10px}
+.section-intro{font-size:14px;color:var(--ink2);line-height:1.65;margin-bottom:22px;max-width:640px}
+
+/* ── FLOWER GALLERY ── */
+.flower-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:24px}
+.flower-tile{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s}
+.flower-tile:active{transform:scale(.97)}
+.flower-img{width:100%;height:100px;background-size:cover;background-position:center;display:flex;align-items:flex-end;position:relative}
+.flower-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.45) 100%)}
+.flower-tile-label{position:relative;z-index:1;padding:5px 7px;font-size:11px;font-weight:600;color:white;line-height:1.25;width:100%}
+.flower-tile-sub{font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.05em;display:block;margin-top:1px}
+
+/* ── ZONE IMAGE HEADERS ── */
+.zone-hero{width:100%;height:180px;background-size:cover;background-position:center;border-radius:var(--radius) var(--radius) 0 0;display:flex;align-items:flex-end;position:relative;overflow:hidden}
+.zone-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.55) 100%);z-index:1}
+.zone-hero-label{position:relative;z-index:1;padding:14px 16px;color:white}
+.zone-hero-title{font-family:var(--font-display);font-size:18px;line-height:1.1;margin-bottom:2px}
+.zone-hero-sub{font-size:12px;opacity:.85}
+.zone-img-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin-bottom:10px}
+.zone-img-body{padding:12px 14px}
+.zone-img-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.zone-img-sub{font-size:13px;color:var(--ink2);line-height:1.55}
+
+/* ── SEED THUMB ── */
+.seed-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border)}
+.seed-row:last-of-type{border-bottom:none}
+.seed-thumb{width:46px;height:46px;border-radius:6px;background-size:cover;background-position:center;flex-shrink:0}
+.seed-info{flex:1;min-width:0}
+.seed-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.25}
+.seed-detail{font-family:var(--font-mono);font-size:10px;color:var(--ink3);margin-top:1px}
+.seed-note{margin:0 16px 14px;padding:10px 12px;border-radius:6px;font-size:12px;line-height:1.6}
+
+/* ── CARDS ── */
+.card{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+.card-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.card-sub{font-size:13px;color:var(--ink2);line-height:1.55}
+
+/* ── BUCKET CARDS ── */
+.bucket-card{border-radius:var(--radius);border:1px solid var(--border);margin-bottom:14px;overflow:hidden}
+.bucket-header{padding:13px 16px 11px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.bucket-header:active{opacity:.8}
+.bucket-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;flex-shrink:0}
+.bucket-head-text{flex:1}
+.bucket-head-title{font-weight:600;font-size:14px;line-height:1.2}
+.bucket-head-sub{font-size:12px;margin-top:1px}
+.bucket-chevron{font-size:18px;transition:transform .25s;color:var(--ink3)}
+.bucket-card.open .bucket-chevron{transform:rotate(180deg)}
+.bucket-body{display:none;border-top:1px solid var(--border)}
+.bucket-card.open .bucket-body{display:block}
+
+.bucket-A .bucket-header{background:var(--warm-light)} .bucket-A .bucket-num{background:var(--warm);color:white} .bucket-A .bucket-head-title{color:var(--warm)} .bucket-A .bucket-head-sub{color:#9a4018} .bucket-A .seed-note{background:var(--warm-light);color:#9a4018}
+.bucket-B .bucket-header{background:var(--gold-light)} .bucket-B .bucket-num{background:var(--gold);color:white} .bucket-B .bucket-head-title{color:var(--gold)} .bucket-B .bucket-head-sub{color:#8a6c08} .bucket-B .seed-note{background:var(--gold-light);color:#8a6c08}
+.bucket-C .bucket-header{background:var(--green-light)} .bucket-C .bucket-num{background:var(--green);color:white} .bucket-C .bucket-head-title{color:var(--green)} .bucket-C .bucket-head-sub{color:#2a5025} .bucket-C .seed-note{background:var(--green-light);color:#2a5025}
+.bucket-D .bucket-header{background:var(--pink-light)} .bucket-D .bucket-num{background:var(--pink);color:white} .bucket-D .bucket-head-title{color:var(--pink)} .bucket-D .bucket-head-sub{color:#7a3050} .bucket-D .seed-note{background:var(--pink-light);color:#7a3050}
+
+/* ── BATCH CARDS ── */
+.batch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+@media(max-width:600px){.batch-grid{grid-template-columns:1fr}}
+.batch-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.batch-card-header{padding:10px 13px;display:flex;align-items:center;gap:10px}
+.batch-dir{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.batch-card-body{padding:11px 13px}
+.batch-lime{font-family:var(--font-mono);font-size:13px;font-weight:500;margin-bottom:7px}
+.batch-contents{font-size:12px;color:var(--ink2);line-height:1.65}
+.batch-contents li{margin-left:14px;margin-bottom:2px}
+.batch-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-display);font-size:13px;flex-shrink:0}
+.batch-label{font-weight:600;font-size:13px}
+.batch-1 .batch-card-header{background:var(--warm-light)} .batch-1 .batch-num{background:var(--warm)} .batch-1 .batch-label{color:var(--warm)}
+.batch-2 .batch-card-header{background:var(--gold-light)} .batch-2 .batch-num{background:var(--gold)} .batch-2 .batch-label{color:var(--gold)}
+.batch-3 .batch-card-header{background:var(--pink-light)} .batch-3 .batch-num{background:var(--pink)} .batch-3 .batch-label{color:var(--pink)}
+.batch-4 .batch-card-header{background:var(--blue-light)} .batch-4 .batch-num{background:var(--blue)} .batch-4 .batch-label{color:var(--blue)}
+
+/* ── CHECKLIST ── */
+.checklist{margin:0 0 18px}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.check-item:last-child{border-bottom:none}
+.check-box{width:22px;height:22px;min-width:22px;border:1.5px solid var(--border-strong);border-radius:5px;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;background:var(--paper)}
+.check-item.done .check-box{background:var(--green);border-color:var(--green)}
+.check-tick{display:none;color:white;font-size:13px;font-weight:700}
+.check-item.done .check-tick{display:block}
+.check-text{flex:1}
+.check-label{font-size:14px;font-weight:500;color:var(--ink);line-height:1.3;transition:color .15s}
+.check-item.done .check-label{color:var(--ink3);text-decoration:line-through;text-decoration-color:var(--ink3)}
+.check-detail{font-size:12px;color:var(--ink3);margin-top:2px;line-height:1.5}
+
+/* ── ALERTS ── */
+.alert{border-radius:var(--radius);padding:11px 14px;font-size:13px;line-height:1.6;margin-bottom:12px;border-left:3px solid}
+.alert-warn{background:var(--warm-light);border-color:var(--warm);color:#9a4018}
+.alert-info{background:var(--blue-light);border-color:var(--blue);color:#1a3f60}
+.alert-tip{background:var(--green-light);border-color:var(--green);color:#2a5025}
+.alert-title{font-weight:600;margin-bottom:3px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ── SPREADER ── */
+.dial-wrapper{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin:14px 0}
+.dial-visual{background:var(--paper2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;min-width:170px}
+.dial-svg{width:110px;height:110px}
+.dial-label-main{font-family:var(--font-display);font-size:30px;color:var(--ink);margin:6px 0 2px}
+.dial-label-sub{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3)}
+.dial-notes{flex:1;min-width:200px}
+.dial-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.dial-row:last-child{border-bottom:none}
+.dial-row-label{color:var(--ink2)}
+.dial-row-val{font-family:var(--font-mono);font-weight:500;color:var(--ink)}
+
+/* ── ZONE MAP ── */
+.zone-map-wrap{background:var(--paper2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
+.zone-legend{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+.zone-legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)}
+.zone-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* ── ISSUES ── */
+.issue-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:9px;border-left:3px solid var(--border-strong)}
+.issue-card.resolved{border-left-color:var(--green)} .issue-card.caution{border-left-color:var(--warm)} .issue-card.note{border-left-color:var(--gold)}
+.issue-tag{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.issue-card.resolved .issue-tag{color:var(--green)} .issue-card.caution .issue-tag{color:var(--warm)} .issue-card.note .issue-tag{color:var(--gold)}
+.issue-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.issue-body{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:1.5px;background:var(--border-strong);border-radius:1px}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-dot{position:absolute;left:-26px;top:3px;width:15px;height:15px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1.5px var(--border-strong);background:var(--paper2)}
+.tl-item.done .tl-dot{background:var(--green);box-shadow:0 0 0 1.5px var(--green)}
+.tl-item.current .tl-dot{background:var(--warm);box-shadow:0 0 0 1.5px var(--warm)}
+.tl-label{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:2px}
+.tl-detail{font-size:12px;color:var(--ink3);line-height:1.5}
+.tl-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:2px 7px;border-radius:10px;margin-bottom:4px}
+.tag-done{background:var(--green-light);color:var(--green)} .tag-now{background:var(--warm-light);color:var(--warm)} .tag-next{background:var(--paper3);color:var(--ink3)}
+
+.divider{height:1px;background:var(--border);margin:20px 0}
+.tag-pill{display:inline-block;font-size:11px;font-family:var(--font-mono);padding:2px 8px;border-radius:10px;font-weight:500}
+.pill-orange{background:var(--warm-light);color:var(--warm)} .pill-gold{background:var(--gold-light);color:var(--gold)} .pill-green{background:var(--green-light);color:var(--green)} .pill-blue{background:var(--blue-light);color:var(--blue)} .pill-pink{background:var(--pink-light);color:var(--pink)} .pill-gray{background:var(--paper3);color:var(--ink3)}
+h3{font-family:var(--font-display);font-size:18px;font-weight:normal;color:var(--ink);margin:18px 0 10px}
+.hand-badge{display:inline-block;font-size:10px;font-family:var(--font-mono);background:var(--paper3);color:var(--ink3);padding:1px 6px;border-radius:4px;white-space:nowrap}
 </style>
 </head>
 <body>
