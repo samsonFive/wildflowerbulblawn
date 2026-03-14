@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Mountain Bay Meadow — Seed Mixing Field Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -209,7 +210,7 @@ h3{font-family:var(--font-display);font-size:18px;font-weight:normal;color:var(-
 
   <!-- Cover hero -->
   <div id="cover-hero" style="width:100%;height:260px;border-radius:var(--radius);overflow:hidden;margin-bottom:20px;position:relative;background:linear-gradient(160deg,#c8602a 0%,#e8a030 30%,#5870c8 60%,#3a1a40 100%)">
-    <img id="cover-img" src="field1.jpg" alt="Mountain Bay Meadow at peak bloom" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+    <img id="cover-img" src="field1.jpeg" alt="Mountain Bay Meadow at peak bloom" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%)"></div>
     <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px">
       <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Bear Creek Way · Santa Cruz Mountains · 2026</div>
@@ -509,33 +510,33 @@ h3{font-family:var(--font-display);font-size:18px;font-weight:normal;color:var(-
 // ── IMAGE DATA ──
 // Each entry: [id, wikiUrl, fallbackColor, fallbackEmoji, label, sub]
 const FLOWERS = [
-  ['poppy-o',  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg',   '#e8781a','🌸','CA Poppy','Tip zone · Feb–May'],
-  ['calendula','https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Calendula_officinalis_flowers.jpg/400px-Calendula_officinalis_flowers.jpg','#e8a020','🌼','Calendula','Tip zone · Mar–Jun'],
-  ['phacelia', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/400px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg','#5870c8','🌿','Phacelia','Mid band · Mar–May'],
-  ['nigella',  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/400px-Nigella_damascena_-_13.jpg','#4858a8','💙','Nigella','Mid band · Apr–Jun'],
-  ['clarkia',  'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Clarkia_unguiculata.jpg/400px-Clarkia_unguiculata.jpg','#d06080','🌸','Clarkia','Tip–mid · Apr–Jun'],
-  ['flax-s',   'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Linum_grandiflorum_rubrum.jpg/400px-Linum_grandiflorum_rubrum.jpg','#c83030','❤️','Scarlet Flax','Annual · tip–mid'],
-  ['flax-b',   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Linum_perenne_-_habitus.jpg/400px-Linum_perenne_-_habitus.jpg','#3858a8','💙','Blue Flax','Perennial · mid–back'],
-  ['cosmos',   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Cosmos_bipinnatus_flowers.jpg/400px-Cosmos_bipinnatus_flowers.jpg','#d880a0','🌸','Dwarf Cosmos','Tip–mid · Jun–Oct'],
-  ['yarrow-w', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/AchilleaMillefolium.jpg/400px-AchilleaMillefolium.jpg','#e8e0cc','🌿','Yarrow (white)','Throughout · May–Aug'],
-  ['yarrow-y', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Achillea_filipendulina.jpg/400px-Achillea_filipendulina.jpg','#d8b820','🌼','Yarrow (yellow)','Throughout · May–Aug'],
-  ['yarrow-m', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Achillea_millefolium_rosen.jpg/400px-Achillea_millefolium_rosen.jpg','#e890b0','🌸','Yarrow (berries)','Throughout · May–Aug'],
-  ['beebalm',  'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg','#a060c0','🌸','Bee Balm','Field-wide · Jun–Aug'],
-  ['scabiosa', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Scabiosa_atropurpurea0.jpg/400px-Scabiosa_atropurpurea0.jpg','#4a1a50','💜','Scabiosa','Hand cluster · mid'],
-  ['hopi',     'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/400px-Amaranthus_cruentus_Hopi_Red_Dye.jpg','#8a0020','❤️','Hopi Amaranth','Sentinels · 5–8 ft'],
-  ['craspedia','https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Craspedia_globosa_2.jpg/400px-Craspedia_globosa_2.jpg','#d8b010','🌼','Craspedia','Mid–back · May–Jul'],
-  ['mullein',  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Verbascum_thapsus_fg01.jpg/400px-Verbascum_thapsus_fg01.jpg','#c8b870','🌿','Mullein','Hand-place · Year 2'],
-  ['am-splendor','https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg/400px-Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg','#a02040','❤️','Amaranthus','Back zone · Jul–Oct'],
-  ['celosia',  'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Celosia_argentea_var._cristata_at_Kadavoor.jpg/400px-Celosia_argentea_var._cristata_at_Kadavoor.jpg','#c83860','🌸','Celosia','Back zone · Jul–Oct'],
-  ['hibiscus', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hibiscus_trionum0.jpg/400px-Hibiscus_trionum0.jpg','#e8d0a0','🌸','Hibiscus Trionum','Back zone · Jul–Sep'],
-  ['gomphrena','https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Gomphrena_globosa_-_Morada.jpg/400px-Gomphrena_globosa_-_Morada.jpg','#8840a0','💜','Gomphrena','Back zone cluster'],
-  ['coreopsis','https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Coreopsis_tinctoria_by_Stickpen.jpg/400px-Coreopsis_tinctoria_by_Stickpen.jpg','#d8980a','🌻','Coreopsis','Throughout · May–Aug'],
-  ['ammi',     'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Ammi_majus_MS_4272.jpg/400px-Ammi_majus_MS_4272.jpg','#e8e4d8','🌿','Ammi','Mid band · May–Jul'],
-  ['spilanthes','https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Acmella_oleracea_Bl%C3%BCte.jpg/400px-Acmella_oleracea_Bl%C3%BCte.jpg','#d8b010','🌼','Toothache Plant','Throughout · Jun–Sep'],
-  ['bupleurum','https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bupleurum_rotundifolium_MS_4553.jpg/400px-Bupleurum_rotundifolium_MS_4553.jpg','#7a9830','🌿','Bupleurum','Mid band · filler'],
-  ['poppy-g',  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg','#e8c830','🌸','Poppy (golden)','Tip zone supplement'],
-  ['am-torch', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Amaranthus_hybridus2.jpg/400px-Amaranthus_hybridus2.jpg','#601020','❤️','Pygmy Torch','Back zone center'],
-  ['beebalm2', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg','#a060c0','🌸','Bee Balm','Field-wide · Jun–Aug'],
+  ['poppy-o',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg&w=400&output=jpg&q=85',   '#e8781a','🌸','CA Poppy','Tip zone · Feb–May'],
+  ['calendula','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Calendula_officinalis_flowers.jpg/400px-Calendula_officinalis_flowers.jpg&w=400&output=jpg&q=85','#e8a020','🌼','Calendula','Tip zone · Mar–Jun'],
+  ['phacelia', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/400px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg&w=400&output=jpg&q=85','#5870c8','🌿','Phacelia','Mid band · Mar–May'],
+  ['nigella',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/400px-Nigella_damascena_-_13.jpg&w=400&output=jpg&q=85','#4858a8','💙','Nigella','Mid band · Apr–Jun'],
+  ['clarkia',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Clarkia_unguiculata.jpg/400px-Clarkia_unguiculata.jpg&w=400&output=jpg&q=85','#d06080','🌸','Clarkia','Tip–mid · Apr–Jun'],
+  ['flax-s',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Linum_grandiflorum_rubrum.jpg/400px-Linum_grandiflorum_rubrum.jpg&w=400&output=jpg&q=85','#c83030','❤️','Scarlet Flax','Annual · tip–mid'],
+  ['flax-b',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Linum_perenne_-_habitus.jpg/400px-Linum_perenne_-_habitus.jpg&w=400&output=jpg&q=85','#3858a8','💙','Blue Flax','Perennial · mid–back'],
+  ['cosmos',   'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/54/Cosmos_bipinnatus_flowers.jpg/400px-Cosmos_bipinnatus_flowers.jpg&w=400&output=jpg&q=85','#d880a0','🌸','Dwarf Cosmos','Tip–mid · Jun–Oct'],
+  ['yarrow-w', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3f/AchilleaMillefolium.jpg/400px-AchilleaMillefolium.jpg&w=400&output=jpg&q=85','#e8e0cc','🌿','Yarrow (white)','Throughout · May–Aug'],
+  ['yarrow-y', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/74/Achillea_filipendulina.jpg/400px-Achillea_filipendulina.jpg&w=400&output=jpg&q=85','#d8b820','🌼','Yarrow (yellow)','Throughout · May–Aug'],
+  ['yarrow-m', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/25/Achillea_millefolium_rosen.jpg/400px-Achillea_millefolium_rosen.jpg&w=400&output=jpg&q=85','#e890b0','🌸','Yarrow (berries)','Throughout · May–Aug'],
+  ['beebalm',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg&w=400&output=jpg&q=85','#a060c0','🌸','Bee Balm','Field-wide · Jun–Aug'],
+  ['scabiosa', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Scabiosa_atropurpurea0.jpg/400px-Scabiosa_atropurpurea0.jpg&w=400&output=jpg&q=85','#4a1a50','💜','Scabiosa','Hand cluster · mid'],
+  ['hopi',     'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/400px-Amaranthus_cruentus_Hopi_Red_Dye.jpg&w=400&output=jpg&q=85','#8a0020','❤️','Hopi Amaranth','Sentinels · 5–8 ft'],
+  ['craspedia','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Craspedia_globosa_2.jpg/400px-Craspedia_globosa_2.jpg&w=400&output=jpg&q=85','#d8b010','🌼','Craspedia','Mid–back · May–Jul'],
+  ['mullein',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Verbascum_thapsus_fg01.jpg/400px-Verbascum_thapsus_fg01.jpg&w=400&output=jpg&q=85','#c8b870','🌿','Mullein','Hand-place · Year 2'],
+  ['am-splendor','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg/400px-Amaranthus_cruentus_-_Leaves_%26_inflorescence.jpg&w=400&output=jpg&q=85','#a02040','❤️','Amaranthus','Back zone · Jul–Oct'],
+  ['celosia',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/6/66/Celosia_argentea_var._cristata_at_Kadavoor.jpg/400px-Celosia_argentea_var._cristata_at_Kadavoor.jpg&w=400&output=jpg&q=85','#c83860','🌸','Celosia','Back zone · Jul–Oct'],
+  ['hibiscus', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hibiscus_trionum0.jpg/400px-Hibiscus_trionum0.jpg&w=400&output=jpg&q=85','#e8d0a0','🌸','Hibiscus Trionum','Back zone · Jul–Sep'],
+  ['gomphrena','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Gomphrena_globosa_-_Morada.jpg/400px-Gomphrena_globosa_-_Morada.jpg&w=400&output=jpg&q=85','#8840a0','💜','Gomphrena','Back zone cluster'],
+  ['coreopsis','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Coreopsis_tinctoria_by_Stickpen.jpg/400px-Coreopsis_tinctoria_by_Stickpen.jpg&w=400&output=jpg&q=85','#d8980a','🌻','Coreopsis','Throughout · May–Aug'],
+  ['ammi',     'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/39/Ammi_majus_MS_4272.jpg/400px-Ammi_majus_MS_4272.jpg&w=400&output=jpg&q=85','#e8e4d8','🌿','Ammi','Mid band · May–Jul'],
+  ['spilanthes','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Acmella_oleracea_Bl%C3%BCte.jpg/400px-Acmella_oleracea_Bl%C3%BCte.jpg&w=400&output=jpg&q=85','#d8b010','🌼','Toothache Plant','Throughout · Jun–Sep'],
+  ['bupleurum','https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bupleurum_rotundifolium_MS_4553.jpg/400px-Bupleurum_rotundifolium_MS_4553.jpg&w=400&output=jpg&q=85','#7a9830','🌿','Bupleurum','Mid band · filler'],
+  ['poppy-g',  'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/400px-Eschscholzia_californica.jpg&w=400&output=jpg&q=85','#e8c830','🌸','Poppy (golden)','Tip zone supplement'],
+  ['am-torch', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Amaranthus_hybridus2.jpg/400px-Amaranthus_hybridus2.jpg&w=400&output=jpg&q=85','#601020','❤️','Pygmy Torch','Back zone center'],
+  ['beebalm2', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Monarda_fistulosa_-_Wild_Bergamot.jpg/400px-Monarda_fistulosa_-_Wild_Bergamot.jpg&w=400&output=jpg&q=85','#a060c0','🌸','Bee Balm','Field-wide · Jun–Aug'],
 ];
 
 // Gallery flower order (subset for overview)
@@ -587,7 +588,6 @@ function buildGallery(){
     container.appendChild(tile);
     // Load image
     const img = new Image();
-    img.crossOrigin = 'anonymous';
     img.onload = () => { imgDiv.style.backgroundImage = `url(${url})`; };
     img.src = url;
   });
@@ -600,7 +600,7 @@ function buildThumbs(){
     if(!el) return;
     el.style.cssText = `width:46px;height:46px;border-radius:6px;background:${color};background-size:cover;background-position:center;flex-shrink:0`;
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    
     img.onload = () => { el.style.backgroundImage = `url(${url})`; };
     img.src = url;
   });
@@ -609,16 +609,16 @@ function buildThumbs(){
 // Apply zone hero images
 function buildHeroes(){
   const heroes = [
-    ['hero-tip',       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/800px-Eschscholzia_californica.jpg'],
-    ['hero-mid',       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/800px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg'],
-    ['hero-back',      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/800px-Amaranthus_cruentus_Hopi_Red_Dye.jpg'],
-    ['hero-backfield', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/800px-Nigella_damascena_-_13.jpg'],
+    ['hero-tip',       'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eschscholzia_californica.jpg/800px-Eschscholzia_californica.jpg&w=800&output=jpg&q=85'],
+    ['hero-mid',       'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/1/18/Phacelia_tanacetifolia_Blaue_Phacelia.jpg/800px-Phacelia_tanacetifolia_Blaue_Phacelia.jpg&w=800&output=jpg&q=85'],
+    ['hero-back',      'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Amaranthus_cruentus_Hopi_Red_Dye.jpg/800px-Amaranthus_cruentus_Hopi_Red_Dye.jpg&w=800&output=jpg&q=85'],
+    ['hero-backfield', 'https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Nigella_damascena_-_13.jpg/800px-Nigella_damascena_-_13.jpg&w=800&output=jpg&q=85'],
   ];
   heroes.forEach(([id, url]) => {
     const el = document.getElementById(id);
     if(!el) return;
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    
     img.onload = () => { el.style.backgroundImage = `url(${url})`; };
     img.src = url;
   });
